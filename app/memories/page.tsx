@@ -1,7 +1,7 @@
 import { createClient } from "@/lib/supabase/server"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { MemoryTimeline } from "@/components/memory-timeline"
+import { MemoriesView } from "./memories-view"
 import type { Memory } from "@/lib/types"
 
 export default async function MemoriesPage() {
@@ -36,16 +36,7 @@ export default async function MemoriesPage() {
           </Button>
         </div>
       ) : (
-        <div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <h1 className="text-2xl font-semibold">Your Memories</h1>
-            <span className="text-sm text-muted-foreground">
-              {memoryList.length} {memoryList.length === 1 ? "memory" : "memories"}
-            </span>
-          </div>
-          
-          <MemoryTimeline memories={memoryList} />
-        </div>
+        <MemoriesView memories={memoryList} />
       )}
     </div>
   )
