@@ -4,9 +4,29 @@ import { createClient } from "@/lib/supabase/server"
 export async function POST(request: NextRequest) {
   try {
     const supabase = await createClient()
-    const { data: { user } } = await supabase.auth.getUser()
+    
+    // Try getUser first (recommended), fall back to getSession if needed
+    const { data: { user }, error: authError } = await supabase.auth.getUser()
+    
+    console.log("[v0] Transcribe auth - user:", user?.id, "error:", authError?.message)
+    console.log("[v0] ELEVENLABS_API_KEY set:", !!process.env.ELEVENLABS_API_KEY)
     
     if (!user) {
+      // Try session as fallback
+      const { data: { session } } = await supabase.auth.getSession()
+      console.log("[v0] Session fallback - session:", !!session)
+      
+      if (!session?.user) {
+        return NextResponse.json({ 
+          error: "Unauthorized", 
+          details: authError?.message || "No session found" 
+        }, { status: 401 })
+      }
+    }
+    
+    const userId = user?.id || (await supabase.auth.getSession()).data.session?.user?.id
+    
+    if (!userId) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 })
     }
 
@@ -43,7 +63,7 @@ export async function POST(request: NextRequest) {
     const result = await response.json()
     
     // Upload original audio to Supabase Storage
-    const fileName = `${user.id}/${Date.now()}-original.webm`
+    const fileName = `${userId}/${Date.now()}-original.webm`
     const { data: uploadData, error: uploadError } = await supabase.storage
       .from("audio")
       .upload(fileName, buffer, {
