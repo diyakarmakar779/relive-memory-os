@@ -28,7 +28,7 @@ export default async function HomePage() {
 
           {/* Description */}
           <p className="text-lg text-muted-foreground leading-relaxed max-w-md mx-auto text-balance">
-            Transform spoken moments into cinematic, emotionally rich memories you can replay. Speak a thought, experience it as a story.
+            Transform spoken moments into rich memories you can replay. Speak a thought, experience it as a story.
           </p>
 
           {/* CTA */}
