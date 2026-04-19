@@ -27,7 +27,7 @@ type AmbientSound = "none" | "rain" | "cafe" | "night" | "ocean" | "fireplace";
 
 const AMBIENT_SOUNDS: Record<AmbientSound, string | null> = {
   none: null,
-  rain: "https://www.soundjay.com/nature/rain-01.mp3",
+  rain: "/rain.mp3",
   cafe: "https://www.soundjay.com/people/cafe-ambience-01.mp3",
   night: "https://www.soundjay.com/nature/crickets-01.mp3",
   ocean: "https://www.soundjay.com/nature/ocean-wave-1.mp3",
