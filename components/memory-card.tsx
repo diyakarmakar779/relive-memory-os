@@ -23,14 +23,16 @@ const EMOTION_STYLES: Record<string, { bg: string; text: string; accent: string 
   melancholy: { bg: "bg-emotion-melancholy/10", text: "text-emotion-melancholy", accent: "bg-emotion-melancholy" },
 }
 
+type AmbientSound = "none" | "rain" | "cafe" | "night" | "ocean" | "fireplace";
+
 const AMBIENT_SOUNDS: Record<AmbientSound, string | null> = {
   none: null,
-  rain: "https://cdn.pixabay.com/audio/2022/05/13/audio_257112181f.mp3",
-  cafe: "https://cdn.pixabay.com/audio/2022/10/30/audio_a573372848.mp3",
-  night: "https://cdn.pixabay.com/audio/2022/08/02/audio_54ca0ffa52.mp3",
-  ocean: "https://cdn.pixabay.com/audio/2022/06/07/audio_b9bd4170e4.mp3",
-  fireplace: "https://cdn.pixabay.com/audio/2021/08/08/audio_dc39bde808.mp3",
-}
+  rain: "https://www.soundjay.com/nature/rain-01.mp3",
+  cafe: "https://www.soundjay.com/people/cafe-ambience-01.mp3",
+  night: "https://www.soundjay.com/nature/crickets-01.mp3",
+  ocean: "https://www.soundjay.com/nature/ocean-wave-1.mp3",
+  fireplace: "https://www.soundjay.com/nature/fireplace-1.mp3",
+};
 
 export function MemoryCard({ memory, autoPlay = false }: MemoryCardProps) {
   const [isPlaying, setIsPlaying] = useState(false)
